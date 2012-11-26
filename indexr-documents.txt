@@ -1,0 +1,48 @@
+Project Description:
+
+Indexr is an open source project, where I am trying to share how to build a web application with Strong Architecture, to build Manageable and High Performance web applications Effectively and Quickly.
+It is a web application for demonstrating ASP.NET MVC and EF Code First, and Architectural Practices.
+
+Technologies:
+
+ASP.NET 4.5 (Earlier)
+ASP.NET MVC 4
+ASP.NET Web API
+Entity Framework 5.0 (Earlier)
+Autofac 3.0.0 (Beta)
+Kendo UI Web
+Patterns & Practices:
+
+Domain Driven Design
+Repository Pattern & Generic Repository
+Unit of Work Pattern
+Dependency Injection
+Releases:
+
+Indexr in GitHub
+Blog posts about Indexr 0.5:
+
+Features/Changes Added on Indexr 1.0:
+
+Windows Azure Web Role
+Changes in Solution Architectures using Commands, Command Handlers, Command Dispatcher
+HTTP Services using ASP.NET Web API
+Theme Switching Feature 
+Features of Indexr 0.5:
+
+CRUD demo in ASP.NET MVC 4 with Entity Framework 5.0 Code First
+Razor View Engine
+Generic repository for Entity Framework Code First
+Repository Pattern and Unit of Work
+Dependency Injection using Unity 2.0
+Mobile specific pages using JQuery Mobile
+ASP.NET MVC Area for Mobile specific pages
+Using EF 5.0 Code First with custom Membership/Role provider
+Using Altairis Web Security Toolkit 2.4.4.0 For custom Membership/Role provider
+Supported Browsers:
+
+Mozilla
+Chrome
+Safari
+Opera
+IE 9/8/7

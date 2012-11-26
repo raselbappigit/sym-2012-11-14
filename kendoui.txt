@@ -1,0 +1,194 @@
+@{
+    ViewBag.Title = "Kendo UI Window";
+}
+<h2>
+    Category List: Kendo UI Window Mode</h2>
+<div id="commonMessage">
+</div>
+<p>
+    @*@Html.ActionLink("Add Category", "Add", "Category", new { @id = "add", @class = "lnkAddCategory button" })*@
+    <a id="addCategory" rel="/Category/Add" class="lnkAddCategory" title="Add">Add Category</a>
+</p>
+<div id="catGrid">
+    @(Html.Kendo().Grid<RnD.KendoUISample.Models.Category>()
+        .Name("categoryGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.CategoryId).Groupable(false);
+            columns.Bound(c => c.Name).Title("Category Name").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CategoryId).Sortable(true).Groupable(false).Filterable(false).ClientTemplate("<a name='lnkDetailsCategory' class='lnkDetailsCategory' id='lnkDetailsCategory_#= CategoryId #'  rel='/Category/Details/#= CategoryId #' title='Details'>Details</a>&nbsp;&nbsp;<a name='lnkEditCategory' class='lnkEditCategory' id='lnkEditCategory_#= CategoryId #'  rel='/Category/Edit/#= CategoryId #' title='Edit'>Edit</a>&nbsp;&nbsp;<a name='lnkDeleteCategory' class='lnkDeleteCategory' id='lnkDeleteCategory_#= CategoryId #' rel='/Category/Delete/#= CategoryId #' title='Delete'>Delete</a>").HeaderTemplate("Actions").Width("200px"); ;
+        }).Groupable().Pageable(pager => pager.Input(true).Numeric(true).Info(true).PreviousNext(true).Refresh(true).PageSizes(true)).Sortable().Scrollable().Filterable(filter => filter.Enabled(false)).DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("Categorys_Read", "Category")))
+)
+</div>
+@*<div id="catWindow">
+    <div id="addCategoryWindow">
+        @(Html.Kendo().Window().Name("addCategoryWindow").Title("Add Category").Content("loading...").LoadContentFrom("Add", "Category").Draggable().Resizable().Visible(false))
+    </div>
+    <div id="editCategoryWindow">
+        @(Html.Kendo().Window().Name("editCategoryWindow").Title("Edit Category").Content("loading...").LoadContentFrom("Edit", "Category").Draggable().Resizable().Visible(false))
+    </div>
+    <div id="deleteCategoryDialog">
+        @(Html.Kendo().Window().Name("deleteCategoryWindow").Title("Delete Category").Content("loading...").LoadContentFrom("Delete", "Category").Draggable().Resizable().Visible(false))
+    </div>
+    <div id="detailsCategoryWindow">
+        @(Html.Kendo().Window().Name("detailsCategoryWindow").Title("Details Category").Content("loading...").LoadContentFrom("Details", "Category").Draggable().Resizable().Visible(false))
+    </div>
+</div>*@
+<div id="catWindow">
+    <div id="addCategoryWindow">
+    </div>
+    <div id="editCategoryWindow">
+    </div>
+    <div id="deleteCategoryWindow">
+    </div>
+    <div id="detailsCategoryWindow">
+    </div>
+</div>
+@*<script src="@Url.Content("~/Scripts/App/category-jq.js")" type="text/javascript"></script>*@
+<script type="text/javascript">
+
+    function createWindow(windowTitle, linkRelVal) {
+        $(document.body).append('<div id="myDynamicWindow"></div>');
+        $('#myDynamicWindow').kendoWindow({
+            width: "500px",
+            actions: ["Minimize", "Maximize", "Close"],
+            title: windowTitle,
+            modal: true,
+            resizable: false,
+            content: linkRelVal,
+            close: function () {
+                setTimeout(function () {
+                    $('#myDynamicWindow').kendoWindow('destroy');
+                }, 200);
+            }
+        }).data('kendoWindow').center();
+    }
+
+    $(document).ready(function () {
+
+        var addCategoryWindow = $("#addCategoryWindow");
+
+        var editCategoryWindow = $("#editCategoryWindow");
+
+        var deleteCategoryWindow = $("#deleteCategoryWindow");
+
+        var detailsCategoryWindow = $("#detailsCategoryWindow");
+
+        //$("#add").live('click', function () { alert("Hello"); });
+
+        $(".lnkAddCategory").live('click', function () {
+
+            //$("#addCategoryWindow").data("kendoWindow").open();
+
+            var linkObj = $(this);
+            //var linkUrlVal = linkObj.attr('href');
+
+            var windowTitle = "Add Category";
+
+            var linkRelVal = linkObj.attr('rel');
+
+            //addCategoryWindow.data("kendoWindow").open();
+
+            //            var dialogDiv;
+
+            //            $.get(linkUrlVal, function (data) {
+            //                alert("get");
+            //                dialogDiv = data;
+            //            });
+
+            //            alert(dialogDiv);
+
+            //            if (!addCategoryWindow.data("kendoWindow")) {
+            //                addCategoryWindow.kendoWindow({
+            //                    width: "500px",
+            //                    actions: ["Custom", "Minimize", "Maximize", "Close"],
+            //                    title: "Add Category",
+            //                    modal: true,
+            //                    resizable: false,
+            //                    content: linkRelVal
+            //                });
+            //            }
+
+            // Create Window By Function
+            createWindow(windowTitle, linkRelVal);
+
+        });
+
+        //lnkDetailsCategory For Display Category Details
+        $(".lnkDetailsCategory").live('click', function () {
+
+            var linkObj = $(this);
+
+            var windowTitle = "Details Category";
+
+            var linkRelVal = linkObj.attr('rel');
+
+            //            if (!detailsCategoryWindow.data("kendoWindow")) {
+            //                detailsCategoryWindow.kendoWindow({
+            //                    width: "500px",
+            //                    actions: ["Custom", "Minimize", "Maximize", "Close"],
+            //                    title: "Details Category",
+            //                    modal: true,
+            //                    resizable: false,
+            //                    content: linkRelVal
+            //                });
+            //            }
+
+            // Create Window By Function
+            createWindow(windowTitle, linkRelVal);
+
+        });
+
+        //lnkEditCategory For Edit Category
+        $(".lnkEditCategory").live('click', function () {
+
+            var linkObj = $(this);
+
+            var windowTitle = "Edit Category";
+
+            var linkRelVal = linkObj.attr('rel');
+
+            //            if (!editCategoryWindow.data("kendoWindow")) {
+            //                editCategoryWindow.kendoWindow({
+            //                    width: "500px",
+            //                    actions: ["Custom", "Minimize", "Maximize", "Close"],
+            //                    title: "Edit Category",
+            //                    modal: true,
+            //                    resizable: false,
+            //                    content: linkRelVal
+            //                });
+            //            }
+
+            // Create Window By Function
+            createWindow(windowTitle, linkRelVal);
+
+        });
+
+        //lnkDeleteCategory For Delete Category
+        $(".lnkDeleteCategory").live('click', function () {
+
+            var linkObj = $(this);
+
+            var windowTitle = "Delete Category";
+
+            var linkRelVal = linkObj.attr('rel');
+
+            //            if (!deleteCategoryWindow.data("kendoWindow")) {
+            //                deleteCategoryWindow.kendoWindow({
+            //                    width: "500px",
+            //                    actions: ["Custom", "Minimize", "Maximize", "Close"],
+            //                    title: "Delete Category",
+            //                    modal: true,
+            //                    resizable: false,
+            //                    content: linkRelVal
+            //                });
+            //            }
+
+            // Create Window By Function
+            createWindow(windowTitle, linkRelVal);
+
+        });
+
+
+    });
+</script>
